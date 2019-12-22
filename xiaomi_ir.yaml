@@ -1,0 +1,43 @@
+esphome:
+  name: xiaomi_ir
+  platform: ESP32
+  board: esp32doit-devkit-v1
+  platformio_options:
+    platform: espressif32@1.11.0
+    platform_packages: |-4
+      
+          framework-arduinoespressif32 @ https://github.com/pauln/arduino-esp32.git#solo-no-mac-crc/1.0.4
+
+
+wifi:
+  ssid: "your_SSID_here"
+  password: "your_Password_here"
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Xiaomi Ir Fallback Hotspot"
+    password: "HYoMsf1HUfmA"
+
+captive_portal:
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  password: "api_password_here"
+
+ota:
+  password: "api_password_here"
+  
+remote_receiver:
+  pin:
+    number: GPIO27
+    inverted: true
+  dump: all
+
+remote_transmitter:
+  - pin:
+      number: GPIO13
+    carrier_duty_percent: 50%
+    id: internal
