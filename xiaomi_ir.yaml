@@ -8,7 +8,10 @@ esphome:
       
           framework-arduinoespressif32 @ https://github.com/pauln/arduino-esp32.git#solo-no-mac-crc/1.0.4
 
-
+substitutions:
+  devicename: xiaomi_ir
+  upper_devicename: Xiaomi IR Remote
+  
 wifi:
   ssid: "your_SSID_here"
   password: "your_Password_here"
@@ -16,7 +19,7 @@ wifi:
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
     ssid: "Xiaomi Ir Fallback Hotspot"
-    password: "HYoMsf1HUfmA"
+    password: "your_Password_here"
 
 captive_portal:
 
@@ -30,6 +33,93 @@ api:
 ota:
   password: "api_password_here"
   
+web_server:
+  port: 80
+  
+binary_sensor:
+
+  - platform: gpio
+    pin:
+      number: GPIO32
+      inverted: false
+    name: ${upper_devicename} Button A
+        
+  - platform: gpio
+    pin:
+      number: GPIO33
+      inverted: false
+    name: ${upper_devicename} Button B
+                
+  - platform: gpio
+    pin:
+      number: GPIO34
+      inverted: false
+    name: ${upper_devicename} Button C
+                
+  - platform: gpio
+    pin:
+      number: GPIO35
+      inverted: false
+    name: ${upper_devicename} Button D
+
+sensor:
+
+  - platform: wifi_signal
+    name: ${upper_devicename} WiFi Signal
+    
+  - platform: uptime
+    name: ${upper_devicename} Uptime
+
+switch:
+
+  - platform: restart
+    name: ${upper_devicename} Restart
+
+  - platform: gpio
+    pin:
+      number: GPIO18
+      inverted: true
+    name: ${upper_devicename} Led 1
+    id: led1
+
+  - platform: gpio
+    pin:
+      number: GPIO23
+      inverted: true
+    name: ${upper_devicename} Led 2
+    id: led2
+
+  - platform: template
+    name: ${upper_devicename} LG TV Power On
+    turn_on_action:
+      - remote_transmitter.transmit_lg:
+          data: 0x02FD48B7              
+          nbits: 32
+          transmitter_id: internal
+          
+mqtt:
+
+  broker: "your_broker_ip_address"
+  
+  username: "your_mqtt_username"
+  password: "your_mqtt_password"
+  discovery: false
+  on_json_message:
+    topic: ${devicename}/transmit_lg        # Examples of json payload : { "data": 551494620, "nbits": 32 }
+    then:                                   #                            { "data": 551494620 }
+      - remote_transmitter.transmit_lg:
+          transmitter_id: internal
+          data: !lambda |-
+            uint32_t data = 0;
+            if (x.containsKey("data"))
+              data = x["data"];
+            return data;
+          nbits: !lambda |-
+            uint8_t nbits = 32;
+            if (x.containsKey("nbits"))
+              nbits = x["nbits"];
+            return nbits;
+  
 remote_receiver:
   pin:
     number: GPIO27
@@ -38,6 +128,6 @@ remote_receiver:
 
 remote_transmitter:
   - pin:
-      number: GPIO13
+      number: GPIO26
     carrier_duty_percent: 50%
     id: internal
