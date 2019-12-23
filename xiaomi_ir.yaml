@@ -37,33 +37,41 @@ web_server:
   port: 80
   
 binary_sensor:
-
   - platform: gpio
     pin:
       number: GPIO32
-      inverted: false
+      inverted: False
     name: ${upper_devicename} Button A
         
   - platform: gpio
     pin:
       number: GPIO33
-      inverted: false
+      inverted: False
     name: ${upper_devicename} Button B
                 
   - platform: gpio
     pin:
       number: GPIO34
-      inverted: false
+      inverted: False
     name: ${upper_devicename} Button C
                 
   - platform: gpio
     pin:
       number: GPIO35
-      inverted: false
+      inverted: False
     name: ${upper_devicename} Button D
 
+status_led:
+  pin:
+    number: GPIO18  #Orange LED - flashes for status events
+    inverted: True
+    
+output:
+  - platform: gpio
+    pin: GPIO23     #Blue LED - Powered on always
+    id: PowerLED
+    
 sensor:
-
   - platform: wifi_signal
     name: ${upper_devicename} WiFi Signal
     
@@ -71,23 +79,8 @@ sensor:
     name: ${upper_devicename} Uptime
 
 switch:
-
   - platform: restart
     name: ${upper_devicename} Restart
-
-  - platform: gpio
-    pin:
-      number: GPIO18
-      inverted: true
-    name: ${upper_devicename} Led 1
-    id: led1
-
-  - platform: gpio
-    pin:
-      number: GPIO23
-      inverted: true
-    name: ${upper_devicename} Led 2
-    id: led2
 
   - platform: template
     name: ${upper_devicename} LG TV Power On
@@ -98,36 +91,20 @@ switch:
           transmitter_id: internal
           
 mqtt:
-
   broker: "your_broker_ip_address"
-  
   username: "your_mqtt_username"
   password: "your_mqtt_password"
-  discovery: false
-  on_json_message:
-    topic: ${devicename}/transmit_lg        # Examples of json payload : { "data": 551494620, "nbits": 32 }
-    then:                                   #                            { "data": 551494620 }
-      - remote_transmitter.transmit_lg:
-          transmitter_id: internal
-          data: !lambda |-
-            uint32_t data = 0;
-            if (x.containsKey("data"))
-              data = x["data"];
-            return data;
-          nbits: !lambda |-
-            uint8_t nbits = 32;
-            if (x.containsKey("nbits"))
-              nbits = x["nbits"];
-            return nbits;
+  discovery: True
   
 remote_receiver:
   pin:
     number: GPIO27
-    inverted: true
+    inverted: True
   dump: all
 
 remote_transmitter:
-  - pin:
-      number: GPIO26
-    carrier_duty_percent: 50%
-    id: internal
+  pin:
+    number: GPIO26
+    inverted: True    #Ensure this is True otherwise your board will get hot!
+  carrier_duty_percent: 50%
+  id: internal
