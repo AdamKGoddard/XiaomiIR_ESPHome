@@ -1,5 +1,9 @@
+substitutions:
+  devicename: xiaomi_ir
+  upper_devicename: Xiaomi IR Remote
+
 esphome:
-  name: xiaomi_ir
+  name: $devicename
   platform: ESP32
   board: esp32doit-devkit-v1
   platformio_options:
@@ -7,10 +11,6 @@ esphome:
     platform_packages: |-4
       
           framework-arduinoespressif32 @ https://github.com/pauln/arduino-esp32.git#solo-no-mac-crc/1.0.4
-
-substitutions:
-  devicename: xiaomi_ir
-  upper_devicename: Xiaomi IR Remote
   
 wifi:
   ssid: "your_SSID_here"
@@ -31,7 +31,7 @@ api:
   password: "api_password_here"
 
 ota:
-  password: "api_password_here"
+  password: "ota_password_here"
   
 web_server:
   port: 80
@@ -105,6 +105,6 @@ remote_receiver:
 remote_transmitter:
   pin:
     number: GPIO26
-    inverted: True    #Ensure this is True otherwise your board will get hot!
+    inverted: False    #Needs idle state to be set to high. Not currently feasible. Will cause board heating.
   carrier_duty_percent: 50%
   id: internal
