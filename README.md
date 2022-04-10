@@ -1,5 +1,6 @@
 # XiaomiIR_ESPHome
-Custom ESPHome Firmware for the Xiaomi Mijia Universal IR Remote Controller
+Custom ESPHome Firmware for the Xiaomi Mijia Universal IR Remote Controller `MJYKQ01CM`.  
+**NOTE:** This is not compatible with Marvell model `NDZ-08-GA`.
 
 Thank you to Paul Nicholls for his work on adapting the Arduino ESP32 Core to the Single Core Processor variant used by Xiaomi, and his resulting Linp Doorbell ESPHome integration.
 
