@@ -10,6 +10,7 @@ https://github.com/pauln/esphome-linp-doorbell-g03
 
 Flashing Instructions:
  - Load yaml file to ESPHome and adjust parameters to suit your setup.
+ - Upload remote_transmitter_esp32.cpp and pre_extra_script.py to you home assistant files in "/config/esphome/"
  - Validate yaml and ensure no errors.
  - Manually compile and download binary firmware file.
  - Open the unit and solder GND, RX0 and TX0 to your USB-TTL Serial adapter.
