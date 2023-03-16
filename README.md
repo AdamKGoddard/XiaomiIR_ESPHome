@@ -17,3 +17,4 @@ Flashing Instructions:
  - Press and hold Reset whilst plugging in MicroUSB power.
  - Flash the unit with the ESPHome Flasher software.
 
+Tested compiling against ESPHome 2023.3.0 under Home Assistant 2023.3.4.
