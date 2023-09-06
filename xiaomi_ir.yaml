@@ -3,15 +3,16 @@ esphome:
   friendly_name: Xiaomi-IR
   platformio_options:
     extra_scripts: 
-      - pre:pre_extra_script.py
-    platform_packages:
-      - framework-arduinoespressif32 @ https://github.com/pauln/arduino-esp32.git#solo-no-mac-crc/1.0.6
-    platform:
-      - espressif32
-
+      - pre:/config/esphome/pre_extra_script.py
 
 esp32:
   board: esp32doit-devkit-v1
+  framework:
+    type: esp-idf
+    sdkconfig_options:
+      CONFIG_FREERTOS_UNICORE: y
+    advanced:
+      ignore_efuse_mac_crc: true
 
 # Enable logging
 logger:
@@ -92,13 +93,7 @@ switch:
           data: 0x02FD48B7              
           nbits: 32
           transmitter_id: xiaomi
-          
-mqtt:
-  broker: "your broker ip"
-  username: "your_mqtt_username"
-  password: "your_mqtt_password"
-  discovery: True
-  
+            
 remote_receiver:
   pin:
     number: GPIO27
