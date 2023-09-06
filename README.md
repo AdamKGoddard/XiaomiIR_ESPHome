@@ -8,6 +8,8 @@ https://github.com/pauln/arduino-esp32/wiki
 
 https://github.com/pauln/esphome-linp-doorbell-g03
 
+** 2023/09/06 - Upgraded to ESP-IDF to bypass compilation issues with the old framework and newer ESPHome configs, please update your pre-script files and YAML code accordingly
+
 Flashing Instructions:
  - Load yaml file to ESPHome and adjust parameters to suit your setup.
  - Upload remote_transmitter_esp32.cpp and pre_extra_script.py to you home assistant files in "/config/esphome/"
@@ -17,4 +19,4 @@ Flashing Instructions:
  - Press and hold Reset whilst plugging in MicroUSB power.
  - Flash the unit with the ESPHome Flasher software.
 
-Tested compiling against ESPHome 2023.3.0 under Home Assistant 2023.3.4.
+Tested compiling against ESPHome 2023.8.3 under Home Assistant 2023.8.4.
