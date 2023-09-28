@@ -1,4 +1,4 @@
-# XiaomiIR_ESPHome
+9# XiaomiIR_ESPHome
 Custom ESPHome Firmware for the Xiaomi Mijia Universal IR Remote Controller `MJYKQ01CM`.  
 **NOTE:** This is not compatible with Marvell model `NDZ-08-GA`.
 
@@ -19,4 +19,4 @@ Flashing Instructions:
  - Press and hold Reset whilst plugging in MicroUSB power.
  - Flash the unit with the ESPHome Flasher software.
 
-Tested compiling against ESPHome 2023.8.3 under Home Assistant 2023.8.4.
+Tested compiling against ESPHome 2023.9.1 under Home Assistant 2023.9.3.
