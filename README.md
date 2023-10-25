@@ -1,4 +1,4 @@
-9# XiaomiIR_ESPHome
+XiaomiIR_ESPHome
 Custom ESPHome Firmware for the Xiaomi Mijia Universal IR Remote Controller `MJYKQ01CM`.  
 **NOTE:** This is not compatible with Marvell model `NDZ-08-GA`.
 
