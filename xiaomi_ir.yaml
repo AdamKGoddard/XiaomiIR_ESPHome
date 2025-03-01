@@ -1,9 +1,9 @@
 esphome:
   name: xiaomi-ir
   friendly_name: Xiaomi-IR
-  platformio_options:
-    extra_scripts: 
-      - pre:/config/esphome/pre_extra_script.py
+#  platformio_options: -----NO LONGER REQUIRED
+#    extra_scripts: 
+#      - pre:/config/esphome/pre_extra_script.py
 
 esp32:
   board: esp32doit-devkit-v1
